@@ -14,17 +14,19 @@
 <?import sample.factory.CollapsedViewFactory?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableView.TableViewSelectionModel?>
 <VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller" >
    <children>
-      <Pane minWidth="600.0" prefHeight="60.0" style="-fx-background-color: #5153ff;">
-            <Button onAction="#load" />
+      <Pane minWidth="600.0" prefHeight="60.0" style="-fx-background-color: #611bff;">
+
       </Pane>
       <TableView fx:id="taskTable"  editable="true"
-      onKeyPressed="#processKeyPress">
+      onKeyPressed="#processKeyPress"   >
+
           <contextMenu>
               <ContextMenu>
                   <items>
-                      <MenuItem text="Insert Row" onAction="#addNewRow"/>
+                      <MenuItem text="Insert Row (CTRL+↓)" onAction="#addNewRow"/>
                       <MenuItem text="Delete Row" />
                   </items>
               </ContextMenu>

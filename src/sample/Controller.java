@@ -17,8 +17,9 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class Controller  {
+public class Controller  implements Initializable{
 
     @FXML private TableView<Task> taskTable;
 
@@ -26,49 +27,17 @@ public class Controller  {
 
 
 
-//
-//
-    public void load(ActionEvent actionEvent) {
-
-        this.taskTable.getItems().addAll(
-                new Task("1","T1","ST1"),
-                new Task("2","T2","ST2"),
-                new Task("3","T3","ST3")
-
-
-        );
-
-
-    }
-
-    public void save(TableColumn.CellEditEvent cellEditEvent) {
-        System.out.println(cellEditEvent);
-
-        TableColumn<String,Task> stringTaskTableColumn = null;
-        stringTaskTableColumn.setCellFactory(new Callback<TableColumn<String, Task>, TableCell<String, Task>>() {
-            @Override
-            public TableCell<String, Task> call(TableColumn<String, Task> param) {
-                return null;
-            }
-        });
-//        cellEditEvent.getTableColumn()
-//        this.taskTable.getSelectionModel().getSelectedItem().setTask();
-    }
-
     public void processKeyPress(KeyEvent keyEvent) {
 
-//        System.out.println(keyEvent.getSource());
-//        System.out.println(keyEvent.getText());
-//        System.out.println(keyEvent.getTarget());
-//        System.out.println(keyEvent.getCode());
-//
-//        if(keyEvent.getCode() == KeyCode.TAB){
-//            keyEvent.consume();
-//
+
+        if(keyEvent.getCode() == KeyCode.DOWN && keyEvent.isControlDown()){
+            //add a new row
+            //based on the selected row number
+            addRow();
+            keyEvent.consume();
+
+        }
 //        }
-
-
-
 
     }
 
@@ -76,7 +45,29 @@ public class Controller  {
 
     public void addNewRow(ActionEvent actionEvent) {
 
-        this.taskTable.getItems().add(new Task());
+        addRow();
 
+    }
+
+    private void addRow() {
+        int selectedIndex = this.taskTable.getSelectionModel().getSelectedIndex();
+        selectedIndex = selectedIndex < 0 ? (this.taskTable.getItems().size()) : selectedIndex + 1;
+
+
+
+        this.taskTable.getItems().add(selectedIndex,new Task());
+
+        //handle the Sl. No.
+
+        final AtomicInteger count = new AtomicInteger(1);
+        this.taskTable.getItems().forEach( t -> t.setSlNo(String.valueOf((count.getAndIncrement()))));
+
+
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.taskTable.getSelectionModel().setCellSelectionEnabled(true);
     }
 }
