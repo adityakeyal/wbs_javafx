@@ -2,6 +2,7 @@
  */
 package sample;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Objects;
@@ -11,6 +12,7 @@ import java.util.Objects;
  */
 public class Task {
 
+    private final SimpleBooleanProperty collapsed = new SimpleBooleanProperty(false);
     private final SimpleStringProperty slNo = new SimpleStringProperty("");
     private final SimpleStringProperty task = new SimpleStringProperty("");
     private final SimpleStringProperty subTask = new SimpleStringProperty("");
@@ -24,6 +26,19 @@ public class Task {
         this.slNo.set(slNo);
         this.task.set(task);
         this.subTask.set(subTask);
+    }
+
+
+    public boolean isCollapsed() {
+        return collapsed.get();
+    }
+
+    public SimpleBooleanProperty collapsedProperty() {
+        return collapsed;
+    }
+
+    public void setCollapsed(boolean collapsed) {
+        this.collapsed.set(collapsed);
     }
 
     public String getSlNo() {
@@ -50,5 +65,15 @@ public class Task {
         this.subTask.set(subTask);
     }
 
+    public SimpleStringProperty slNoProperty() {
+        return slNo;
+    }
 
+    public SimpleStringProperty taskProperty() {
+        return task;
+    }
+
+    public SimpleStringProperty subTaskProperty() {
+        return subTask;
+    }
 }

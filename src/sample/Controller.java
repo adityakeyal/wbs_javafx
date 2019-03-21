@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -42,26 +43,40 @@ public class Controller  {
 
     public void save(TableColumn.CellEditEvent cellEditEvent) {
         System.out.println(cellEditEvent);
+
+        TableColumn<String,Task> stringTaskTableColumn = null;
+        stringTaskTableColumn.setCellFactory(new Callback<TableColumn<String, Task>, TableCell<String, Task>>() {
+            @Override
+            public TableCell<String, Task> call(TableColumn<String, Task> param) {
+                return null;
+            }
+        });
+//        cellEditEvent.getTableColumn()
+//        this.taskTable.getSelectionModel().getSelectedItem().setTask();
     }
 
     public void processKeyPress(KeyEvent keyEvent) {
 
-        System.out.println(keyEvent.getSource());
-        System.out.println(keyEvent.getText());
-        System.out.println(keyEvent.getTarget());
-        System.out.println(keyEvent.getCode());
-
-        if(keyEvent.getCode() == KeyCode.TAB){
-            keyEvent.consume();
-
-        }
+//        System.out.println(keyEvent.getSource());
+//        System.out.println(keyEvent.getText());
+//        System.out.println(keyEvent.getTarget());
+//        System.out.println(keyEvent.getCode());
+//
+//        if(keyEvent.getCode() == KeyCode.TAB){
+//            keyEvent.consume();
+//
+//        }
 
 
 
 
     }
 
-    public void calStart(TableColumn.CellEditEvent cellEditEvent) {
-        System.out.println("HUZZAHH");
+
+
+    public void addNewRow(ActionEvent actionEvent) {
+
+        this.taskTable.getItems().add(new Task());
+
     }
 }
