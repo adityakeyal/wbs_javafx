@@ -43,17 +43,9 @@
                   <PropertyValueFactory property="slNo" />
                </cellValueFactory>
            </TableColumn>
-           <TableColumn id="taskCol" prefWidth="200.0" text="Task" editable="true" >
+           <TableColumn fx:id="taskCol" prefWidth="200.0" text="Task" editable="true" >
               <cellValueFactory>
                   <PropertyValueFactory property="task" />
-               </cellValueFactory>
-               <cellFactory>
-                   <TextFieldTableCell  fx:factory="forTableColumn" />
-               </cellFactory>
-           </TableColumn>
-           <TableColumn id="subTaskCol" prefWidth="300.0" text="Sub Task"  editable="true">
-              <cellValueFactory>
-                  <PropertyValueFactory property="subTask" />
                </cellValueFactory>
                <cellFactory>
                    <TextFieldTableCell  fx:factory="forTableColumn" />

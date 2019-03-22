@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ public class Controller  implements Initializable{
 
     @FXML private TableView<Task> taskTable;
 
+@FXML private TableColumn taskCol;
 
 
 
@@ -69,5 +71,7 @@ public class Controller  implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.taskTable.getSelectionModel().setCellSelectionEnabled(true);
+        this.taskCol.setCellValueFactory( t-> ((Task)((TableColumn.CellDataFeatures)t).getValue()).taskProperty());
+
     }
 }
