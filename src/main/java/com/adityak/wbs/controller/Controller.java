@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
@@ -36,6 +37,8 @@ public class Controller  implements Initializable{
     @FXML private TableColumn taskCol;
 
     @FXML private TableColumn commentsCol;
+    @FXML private TableColumn statusCol;
+    @FXML private TableColumn jiraCol;
 
 
     private JsonFileRepository repo = new JsonFileRepository();
@@ -84,6 +87,7 @@ public class Controller  implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.taskTable.getSelectionModel().setCellSelectionEnabled(true);
+
 
 
 
@@ -143,19 +147,17 @@ public class Controller  implements Initializable{
 
 
 
+        this.jiraCol.setCellFactory(p -> new HyperlinkConverter(p));
 
 
 
 
-        this.taskCol.setCellFactory(new Callback<TableColumn, TableCell>() {
-        @Override
-        public TableCell call(TableColumn param) {
-            return new MyConverter<Object,String>(param);
-        }
-    });
+        this.taskCol.setCellFactory(param -> new MyConverter<Object,String>((TableColumn) param));
 
-//        Callback<TableColumn<Object, String>, TableCell<Object, String>> tableColumnTableCellCallback = ComboBoxTableCell.forTableColumn("OPEN", "WIP", "CLOSED");
-//        this.statusCol.setCellFactory(tableColumnTableCellCallback);
+        Callback<TableColumn<Object, String>, TableCell<Object, String>> tableColumnTableCellCallback = ComboBoxTableCell.forTableColumn("OPEN", "WIP", "CLOSED");
+        this.statusCol.setCellFactory(tableColumnTableCellCallback);
+
+
 
         this.commentsCol.setCellFactory(x-> new ImageCellView());
 
@@ -187,41 +189,41 @@ public class Controller  implements Initializable{
 
     public static class MyConverter<S,T> extends TextFieldTableCell<S,T>{
     public MyConverter() {
-        super((StringConverter<T>) new DefaultStringConverter());
-    }
+                super((StringConverter<T>) new DefaultStringConverter());
+            }
 
-    private TableColumn param;
+            private TableColumn param;
 
 
 
     public MyConverter(TableColumn param) {
-        this();
+                this();
 
-        this.param = param;
+                this.param = param;
 
-    }
-
-
-    @Override
-    public void updateItem(T item, boolean empty) {
-
-        super.updateItem((T)String.valueOf(item).trim(), empty);
-
-        int currentIndex = indexProperty()
-                .getValue() < 0 ? 0
-                : indexProperty().getValue();
+            }
 
 
-        if(currentIndex < this.param
-                .getTableView().getItems().size()){
-            int level = ((Task)this.param
-                    .getTableView().getItems()
-                    .get(currentIndex)).getLevel();
+            @Override
+            public void updateItem(T item, boolean empty) {
 
-            setPadding(new Insets(0 , 0, 0, level*10 + 5));
-        }
+                super.updateItem((T)String.valueOf(item).trim(), empty);
 
-    }
+                int currentIndex = indexProperty()
+                        .getValue() < 0 ? 0
+                        : indexProperty().getValue();
+
+
+                if(currentIndex < this.param
+                        .getTableView().getItems().size()){
+                    int level = ((Task)this.param
+                            .getTableView().getItems()
+                            .get(currentIndex)).getLevel();
+
+                    setPadding(new Insets(0 , 0, 0, level*10 + 5));
+                }
+
+            }
 
 
 

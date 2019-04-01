@@ -4,11 +4,17 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.net.URL;
 
 public class Main extends Application {
+
+    static {
+       // Font.loadFont(Main.class.getClassLoader().getResource("/font/fontawesome-webfont.ttf").toExternalForm(), 10);
+
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{

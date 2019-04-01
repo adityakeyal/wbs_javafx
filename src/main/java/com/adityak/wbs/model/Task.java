@@ -28,7 +28,20 @@ public class Task {
     private final SimpleStringProperty jira =  new SimpleStringProperty("");
     private final SimpleStringProperty assignee =  new SimpleStringProperty("");
     private final SimpleStringProperty status =  new SimpleStringProperty("");
+    private final SimpleStringProperty comments =  new SimpleStringProperty("");
 
+
+    public String getComments() {
+        return comments.get();
+    }
+
+    public SimpleStringProperty commentsProperty() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments.set(comments);
+    }
 
     public String getAssignee() {
         return assignee.get();
